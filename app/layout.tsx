@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Turret_Road } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,8 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        layout: { unsafe_disableDevelopmentModeWarnings: true },
+      }}
+    >
+      <html lang="en" data-theme="dark">
         <body className={inter.className}>{children}</body>
       </html>
     </ClerkProvider>

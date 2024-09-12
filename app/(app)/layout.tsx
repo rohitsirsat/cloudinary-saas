@@ -11,12 +11,14 @@ import {
   Share2Icon,
   UploadIcon,
   ImageIcon,
+  FileImage,
 } from "lucide-react";
 
 const sidebarItems = [
   { href: "/home", icon: LayoutDashboardIcon, label: "Home Page" },
   { href: "/social-share", icon: Share2Icon, label: "Social Share" },
   { href: "/video-upload", icon: UploadIcon, label: "Video Upload" },
+  { href: "/remove-background", icon: FileImage, label: "Remove background" },
 ];
 
 export default function AppLayout({
@@ -50,7 +52,7 @@ export default function AppLayout({
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
         <header className="w-full bg-base-200">
-          <div className="navbar max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="navbar max-w-7xl mx-auto px-4  lg:px-2">
             <div className="flex-none lg:hidden">
               <label
                 htmlFor="sidebar-drawer"
@@ -59,14 +61,8 @@ export default function AppLayout({
                 <MenuIcon />
               </label>
             </div>
-            <div className="flex-1">
-              <Link href="/" onClick={handleLogoClick}>
-                <div className="btn btn-ghost normal-case text-2xl font-bold tracking-tight cursor-pointer">
-                  Cloudinary Showcase
-                </div>
-              </Link>
-            </div>
-            <div className="flex-none flex items-center space-x-4">
+
+            <div className="flex-1 flex justify-end items-center space-x-2">
               {user && (
                 <>
                   <div className="avatar">
@@ -82,12 +78,14 @@ export default function AppLayout({
                   <span className="text-sm truncate max-w-xs lg:max-w-md">
                     {user.username || user.emailAddresses[0].emailAddress}
                   </span>
-                  <button
-                    onClick={handleSignOut}
-                    className="btn btn-ghost btn-circle"
-                  >
-                    <LogOutIcon className="h-6 w-6" />
-                  </button>
+                  <div className="tooltip tooltip-bottom" data-tip="Sign Out">
+                    <button
+                      onClick={handleSignOut}
+                      className="btn btn-ghost btn-circle"
+                    >
+                      <LogOutIcon className="h-6 w-6" />
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -103,8 +101,11 @@ export default function AppLayout({
       <div className="drawer-side">
         <label htmlFor="sidebar-drawer" className="drawer-overlay"></label>
         <aside className="bg-base-200 w-64 h-full flex flex-col">
-          <div className="flex items-center justify-center py-4">
-            <ImageIcon className="w-10 h-10 text-primary" />
+          <div className="flex items-center justify-center py-2 gap-x-2">
+            <a href="/" className="btn btn-lg btn-primary ">
+              <h1 className="text-xl">ProfileSet </h1>
+              <ImageIcon className="w-8 h-8 md:w-10 md:h-10 text-black" />
+            </a>
           </div>
           <ul className="menu p-4 w-full text-base-content flex-grow">
             {sidebarItems.map((item) => (
@@ -113,7 +114,7 @@ export default function AppLayout({
                   href={item.href}
                   className={`flex items-center space-x-4 px-4 py-2 rounded-lg ${
                     pathname === item.href
-                      ? "bg-primary text-white"
+                      ? "tracking-tight text-white"
                       : "hover:bg-base-300"
                   }`}
                   onClick={() => setSidebarOpen(false)}
